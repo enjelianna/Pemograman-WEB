@@ -1,36 +1,37 @@
-h2{
-    color : orange;
-    font-family : Trebuchet MS;
-    text-align : center;
+html, body {
+    margin: 0;
+    padding: 0;
 }
 
-.kotak{
-    padding: 50px;
-    width: 100px;
-    color: #fff;
-    margin: 10px;
-    background: orange;
+body {
+    font-family: Adobe arabic;
+    background-color: #ddd;
+    line-height: 1.65;
 }
 
-#kotak{
-    width: 400px;
-    color: #fff;
-    background: blue;
-    padding: 50;
+.container-satu {
+    display: flex;
+    background: linear-gradient(to bottom, #f5f5f5, #ddd),('img/bunga1.jpg');
+    background-size: cover;
+    background-position: center;
 }
 
-body{
-    background: lightcyan;
-    color: white;
+.sidebar-satu, .sidebar-dua {
+    width: 20%;
+    padding: 10px;
+    background-color: rgb(243, 205, 219);
+    color: #333;
 }
 
-body{
-    background: url('bunga2.jpg');
-    color: white;
+.sidebar-satu {
+    order: -1;
 }
 
-body{
-    background: url('img/tree1.jpg'), url('img/field1.jpg');
-    background-repeat: no-repeat, repeat;
-    color: white;
+.kolom-utama {
+        width: 60%;
+        padding: 20px;
+        background-image: url('img/bunga1.jpg');
+        background-color: #000000;
+        color: rgb(0, 0, 0);
+        box-sizing: border-box;
 }
