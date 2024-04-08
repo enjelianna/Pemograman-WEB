@@ -6,7 +6,7 @@ $username = $_POST['username'];
 $password = md5($_POST['password']);
 
 // Mengeksekusi query SQL untuk mencari data pengguna dengan username dan password yang sesuai
-$query = "SELECT * FROM user WHERE username='$username' AND password='$password'";
+$query = "SELECT * FROM prakwebdb.user WHERE username='admin' AND password='123'";
 $result = mysqli_query($connect, $query);
 
 // Cek apakah ada data yang ditemukan
