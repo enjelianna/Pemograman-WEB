@@ -11,7 +11,7 @@
     <h2>Tambah Data Anggota</h2> <!-- Judul formulir -->
 
     <!-- Formulir untuk menambah data anggota dengan metode POST -->
-    <form action="proses-tambah.php" method="post">
+    <form action="proses.php" method="post">
 
         <!-- Bagian input nama -->
         <label for="nama">Nama:</label>
