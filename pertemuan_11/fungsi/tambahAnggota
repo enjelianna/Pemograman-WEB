@@ -1,0 +1,53 @@
+<?php
+// Memulai sesi untuk memeriksa apakah pengguna sudah login
+session_start();
+if (!empty($_SESSION['username'])) {
+    // Memuat file konfigurasi dan fungsi yang diperlukan
+    require '../config/koneksi.php';
+    require '../fungsi/pesan_kilat.php';
+    require '../fungsi/anti_injection.php';
+
+    // Memeriksa apakah form anggota telah dikirim
+    if (!empty($_GET['anggota'])) {
+        // Menggunakan fungsi antiinjection untuk membersihkan inputan dari karakter berbahaya
+        $username = antiinjection($koneksi, $_POST['username']);
+        $password = antiinjection($koneksi, $_POST['password']);
+        $level = antiinjection($koneksi, $_POST['level']);
+        $jabatan = antiinjection($koneksi, $_POST['jabatan']);
+        $nama = antiinjection($koneksi, $_POST['nama']);
+        $jenis_kelamin = antiinjection($koneksi, $_POST['jenis_kelamin']);
+        $alamat = antiinjection($koneksi, $_POST['alamat']);
+        $no_telp = antiinjection($koneksi, $_POST['no_telp']);
+
+        // Membuat salt untuk keamanan password
+        $salt = bin2hex(random_bytes(16));
+        // Menggabungkan salt dengan password yang di-hash
+        $combined_password = $salt . hash('sha256', $salt . $password);
+        // Meng-hash kombinasi salt dan password
+        $hashed_password = password_hash($combined_password, PASSWORD_BCRYPT);
+
+        // Menyisipkan data pengguna ke dalam tabel user
+        $query1 = "INSERT INTO user (username, password, salt, level) VALUES ('$username', '$hashed_password', '$salt', '$level')";
+        if (mysqli_query($koneksi, $query1)) {
+            // Mendapatkan ID pengguna yang baru disisipkan
+            $last_id = mysqli_insert_id($koneksi);
+            // Menyisipkan data anggota ke dalam tabel anggota
+            $query2 = "INSERT INTO anggota (nama, jenis_kelamin, alamat, no_telp, user_id, jabatan_id) VALUES ('$nama', '$jenis_kelamin', '$alamat', '$no_telp', '$last_id', '$jabatan')";
+            if (mysqli_query($koneksi, $query2)) {
+                // Menampilkan pesan sukses jika data anggota berhasil disisipkan
+                pesan('success', 'Berhasil Tambahkan Anggota');
+            } else {
+                // Menampilkan pesan peringatan jika gagal menyisipkan data anggota
+                pesan('warning', 'Gagal Menambahkan Anggota Tetapi Data Login Tersimpan Karena: ' . mysqli_error($koneksi));
+            }
+        } else {
+            // Menampilkan pesan kesalahan jika gagal menyisipkan data pengguna
+            pesan('danger', 'Gagal Menambahkan Anggota Karena: ' . mysqli_error($koneksi));
+        }
+        // Mengalihkan ke halaman anggota setelah operasi selesai
+        header('Location: ./index.php?page=anggota');
+        // Menghentikan eksekusi skrip lebih lanjut
+        exit();
+    }
+}
+?>
