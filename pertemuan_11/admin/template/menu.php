@@ -26,7 +26,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link d-flex align-items-center gap-2" href="index.php?page=jabatan">
+                    <a class="nav-link d-flex align-items-center gap-2" href="index.php?page=anggota">
                         <svg class="b1">
                             <use xlink:href="#puzzle" />
                         </svg>
@@ -37,7 +37,7 @@
             <hr class="my-3">
             <ul class="nav flex-column mb-auto">
                 <li class="nav-item">
-                    <a class="nav-link d-flex align-items-center gap-2" href="#">
+                    <a class="nav-link d-flex align-items-center gap-2" href="index.php?page=jabatan">
                         <svg class="b1">
                             <use xlink:href="#gear-wide-connected" />
                         </svg>
